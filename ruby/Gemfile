@@ -6,3 +6,8 @@ gem "mysql2"
 gem "mysql2-cs-bind"
 gem "erubis"
 gem "unicorn"
+gem "pry-byebug"
+gem "pry-doc"
+gem "rack-mini-profiler"
+gem 'flamegraph'
+gem 'stackprof'

@@ -3,6 +3,10 @@ require 'mysql2'
 require 'mysql2-cs-bind'
 require 'tilt/erubis'
 require 'erubis'
+require 'pry'
+require 'rack-mini-profiler'
+require 'flamegraph'
+require 'stackprof'
 # require 'timeout'
 
 module Isucon5
@@ -19,6 +23,7 @@ end
 
 class Isucon5::WebApp < Sinatra::Base
   use Rack::Session::Cookie
+  use Rack::MiniProfiler if ENV['DEBUG'] == 'true'
   set :erb, escape_html: true
   set :public_folder, File.expand_path('../../static', __FILE__)
   #set :sessions, true
