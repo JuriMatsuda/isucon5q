@@ -195,20 +195,20 @@ SQL
     entries_of_friends = []
     db.query('SELECT * FROM entries ORDER BY created_at DESC LIMIT 1000').each do |entry|
       next unless is_friend?(entry[:user_id])
-      entry[:title] = entry[:body].split(/\n/).first
-      entries_of_friends << entry
+        entry[:title] = entry[:body].split(/\n/).first
+        entries_of_friends << entry
       break if entries_of_friends.size >= 10
     end
 
     comments_of_friends = []
-    db.query('SELECT * FROM comments ORDER BY created_at DESC LIMIT 1000').each do |comment|
-      next unless is_friend?(comment[:user_id])
-      entry = db.xquery('SELECT * FROM entries WHERE id = ?', comment[:entry_id]).first
-      entry[:is_private] = (entry[:private] == 1)
-      next if entry[:is_private] && !permitted?(entry[:user_id])
-      comments_of_friends << comment
-      break if comments_of_friends.size >= 10
-    end
+    # db.query('SELECT * FROM comments ORDER BY created_at DESC LIMIT 1000').each do |comment|
+    #   next unless is_friend?(comment[:user_id])
+    #   entry = db.xquery('SELECT * FROM entries WHERE id = ?', comment[:entry_id]).first
+    #   entry[:is_private] = (entry[:private] == 1)
+    #   next if entry[:is_private] && !permitted?(entry[:user_id])
+    #   comments_of_friends << comment
+    #   break if comments_of_friends.size >= 10
+    # end
 
     friends_query = 'SELECT * FROM relations WHERE one = ? OR another = ? ORDER BY created_at DESC'
     friends_map = {}
