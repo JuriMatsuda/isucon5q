@@ -11,4 +11,4 @@ gem "pry-doc"
 gem "rack-mini-profiler"
 gem "flamegraph"
 gem "stackprof"
-# gem "bullet", require: false
+gem "bullet"
