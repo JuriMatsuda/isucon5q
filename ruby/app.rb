@@ -7,7 +7,7 @@ require 'pry'
 require 'rack-mini-profiler'
 require 'flamegraph'
 require 'stackprof'
-# require 'bullet'
+require 'rack-lineprof'
 
 module Isucon5
   class AuthenticationError < StandardError; end
@@ -22,14 +22,11 @@ module Isucon5
 end
 
 class Isucon5::WebApp < Sinatra::Base
-  # Bullet.enable = true
-  # Bullet.alert = true
-  # Bullet.bullet_logger = true
-  # Bullet.console = true
-  #
-  # use Bullet::Rack
+
   use Rack::Session::Cookie
   use Rack::MiniProfiler if ENV['DEBUG'] == 'true'
+  use Rack::Lineprof
+
   set :erb, escape_html: true
   set :public_folder, File.expand_path('../../static', __FILE__)
   #set :sessions, true
